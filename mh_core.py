@@ -26,8 +26,16 @@ from pptx import Presentation  # noqa: E402
 from pptx.util import Pt  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-XLSX_TEMPLATE = os.path.join(HERE, "templates", "Sian3L_MH_Chart-Template.xlsx")
-PPT_TEMPLATE = os.path.join(HERE, "templates", "Sian3L_Mode_Hopping_Template.pptx")
+def _tpl(name):
+    """Template in templates/ or next to this file (repo root)."""
+    for p in (os.path.join(HERE, "templates", name), os.path.join(HERE, name)):
+        if os.path.exists(p):
+            return p
+    return os.path.join(HERE, name)
+
+
+XLSX_TEMPLATE = _tpl("Sian3L_MH_Chart-Template.xlsx")
+PPT_TEMPLATE = _tpl("Sian3L_Mode_Hopping_Template.pptx")
 
 HEADERS = ["[CHNumber]", "[Times]", "[Case_Temp]", "[Wavelength]", "[TXP]",
            "[CH1_DDMI_Bias]", "[CH2_DDMI_Bias]", "[CH3_DDMI_Bias]", "[CH4_DDMI_Bias]",
